@@ -27,12 +27,7 @@ const UserHomePage: React.FC = () => {
   const [brandsAr, setBrandsAr] = useState<{ name: string; year: string }[]>(
     []
   );
-  // const [arabicFiles, setArabicFiles] = useState<any[]>([]);
-  // const [englishFiles, setEnglishFiles] = useState<any[]>([]);
-  // const [selectedPdfCompanyName, setSelectedPdfCompanyName] = useState<
-  //   string | null
-  // >(null);
-  // const [selectedPdfYear, setSelectedPdfYear] = useState<string | null>(null);
+
   const [documents, setDocuments] = useState<Document[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -102,52 +97,12 @@ const UserHomePage: React.FC = () => {
     await dispatch(userLanguageChange(newLanguage));
   };
 
-
-
-  // const handleViewPdf = (
-  //   file: { data: any; contentType: string },
-  //   companyName: string,
-  //   year: string
-  // ) => {
-  //   const blob = new Blob([Uint8Array.from(file.data.data)], {
-  //     type: file.contentType,
-  //   });
-  //   const url = URL.createObjectURL(blob);
-  //   setSelectedPdfUrl(url);
-  //   setSelectedPdfCompanyName(companyName);
-  //   setSelectedPdfYear(year);
-  // };
-
   const arrays = userLanguage === "English" ? brandsEn : brandsAr;
   const currentBrands = arrays.filter(
     (item, index, self) => index === self.findIndex((t) => t.name === item.name)
   );
 
 
-
-
-
-  // const currentFiles = userLanguage === "English" ? englishFiles : arabicFiles;
-
-  // Add this new function to get the correct file index
-  // const getFileIndex = (brand: { name: string; year: string }) => {
-  //   return arrays.findIndex(
-  //     (item) => item.name === brand.name && item.year === brand.year
-  //   );
-  // };
-
-  // Updated filtering logic to include brand selection
-  // const filteredBrands = arrays.filter(
-  //   (brand) =>
-  //     (selectedBrand ? brand.name === selectedBrand : true) &&
-  //     brand.name.toLowerCase().includes(searchTerm.toLowerCase())
-  // );
-
-  // const totalPages = Math.ceil(filteredBrands.length / rowsPerPage);
-  // const paginatedData = filteredBrands.slice(
-  //   (currentPage - 1) * rowsPerPage,
-  //   currentPage * rowsPerPage
-  // );
 
   useEffect(() => {
     // setCurrentPage(1);

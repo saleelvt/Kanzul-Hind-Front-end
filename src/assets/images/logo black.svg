@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384.32 131.7">
+  <defs>
+    <style>
+      .cls-1 {
+        font-size: 48.63px;
+      }
+
+      .cls-2, .cls-3 {
+        fill: #231f20;
+      }
+
+      .cls-4 {
+        font-size: 57px;
+      }
+
+      .cls-5 {
+        font-size: 62.18px;
+      }
+
+      .cls-3 {
+        font-family: ElMessiri-SemiBold, 'El Messiri';
+        font-variation-settings: 'wght' 600;
+        font-weight: 600;
+      }
+    </style>
+  </defs>
+  <g id="Layer_1-2" data-name="Layer 1">
+    <g>
+      <text class="cls-3" transform="translate(196.15 47.31)"><tspan class="cls-1"><tspan x="0" y="0">KANZUL</tspan></tspan><tspan class="cls-5"><tspan x="0" y="57.22">HIND</tspan></tspan></text>
+      <text class="cls-3" transform="translate(0 47.31)"><tspan class="cls-4"><tspan x="0" y="0">كــــــــنــز</tspan></tspan><tspan class="cls-5"><tspan x="8.16" y="57.22"> </tspan><tspan x="23.71" y="57.22">الهند</tspan></tspan></text>
+      <rect class="cls-2" x="176.77" y="11.84" width="2.07" height="93.06" rx=".81" ry=".81"/>
+    </g>
+  </g>
+</svg>

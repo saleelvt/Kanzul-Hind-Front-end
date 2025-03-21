@@ -1,6 +1,6 @@
 // src/App.tsx
 import React, { Fragment, lazy, Suspense } from 'react';
-import { Routes, Route,Navigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { Loading } from './components/pages/Loading';
 
@@ -17,8 +17,8 @@ import { RootState } from './reduxKit/store';
 
 export const App: React.FC = React.memo(() => {
 
-  const {isLogged,role,}=useSelector((state:RootState)=>state.auth)
-  console.log("my role and my isLogged", isLogged,role);
+  const {isLogged,}=useSelector((state:RootState)=>state.auth)
+  console.log("my role and my isLogged", isLogged);
 
   return (
     <Fragment>
@@ -27,10 +27,10 @@ export const App: React.FC = React.memo(() => {
       <Suspense fallback={<Loading />}>
         <Routes>
           <Route path="/" element={ <UserHomePage/>} />
-          <Route path="/adminLogin" element={isLogged && role === 'admin' ? <Navigate to="/adminHomepage" /> : <AdminLogin />} />
-          <Route path="/adminHomepage" element={isLogged && role === 'admin' ? <AdminHomePage /> : <AdminLogin />} />
-          <Route path="/adminAddDocument" element={isLogged &&  role === 'admin' ? <AddDocument /> : <AdminLogin />}/>
-          <Route path="/adminDocumentList" element={isLogged &&  role === 'admin' ? <DocumentList /> : <AdminLogin />} />
+          <Route path="/adminLogin" element={ <AdminLogin />} />
+          <Route path="/adminHomepage" element={<AdminHomePage />}/>
+          <Route path="/adminAddProduct" element={<AddDocument /> }/>
+          <Route path="/adminProductList" element={ <DocumentList /> } />
         </Routes>
       </Suspense>
     </Fragment>

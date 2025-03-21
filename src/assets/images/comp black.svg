@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 317.16 169.79">
+  <defs>
+    <style>
+      .cls-1 {
+        font-family: ElMessiri-SemiBold, 'El Messiri';
+        font-variation-settings: 'wght' 600;
+        font-weight: 600;
+      }
+
+      .cls-1, .cls-2 {
+        fill: #231f20;
+        font-size: 81.43px;
+      }
+
+      .cls-2 {
+        font-family: ElMessiri-Bold, 'El Messiri';
+        font-variation-settings: 'wght' 700;
+        font-weight: 700;
+      }
+    </style>
+  </defs>
+  <g id="Layer_1-2" data-name="Layer 1">
+    <g>
+      <text class="cls-2" transform="translate(0 67.58)"><tspan x="0" y="0">KANZUL</tspan></text>
+      <text class="cls-1" transform="translate(30.01 134.21)"><tspan x="0" y="0">الـــهــنـد</tspan></text>
+    </g>
+  </g>
+</svg>

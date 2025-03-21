@@ -1,6 +1,6 @@
 
 
-export const URL="http://localhost:2002";
+export const URL="http://localhost:1001";
 
  export const createAxiosConfig = (isFileUpload = false) => ({
     headers: {

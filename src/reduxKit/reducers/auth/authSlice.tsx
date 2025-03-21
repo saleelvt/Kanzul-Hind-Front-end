@@ -5,10 +5,9 @@ import { loginAdmin , adminLogout,userLanguageChange} from "../../actions/auth/a
 
 
 export interface UserState {
-  userData: UserState | null;
+
   error: string | null;
   loading: boolean;
-  role: null;
   status?: string | null;
   isLogged: boolean;
   _id?: string | null;
@@ -16,15 +15,8 @@ export interface UserState {
 
 
 const initialState: UserState = {
-  userData: localStorage.getItem("user")
-    ? JSON.parse(localStorage.getItem("user")!)
-    : null,
   error: null,
   loading: false,
-  role: localStorage.getItem("role")
-    ? JSON.parse(localStorage.getItem("role")!)
-    : null,
-  
   isLogged: localStorage.getItem("isLogged")
     ? JSON.parse(localStorage.getItem("isLogged")!)
     : false,
@@ -35,7 +27,6 @@ const initialState: UserState = {
     ? JSON.parse(localStorage.getItem("_id")!)
     : null,
 };
-
 
 
 
@@ -110,22 +101,16 @@ export const authSlice = createSlice({
         state.error = null;
       })
       .addCase(loginAdmin.fulfilled, (state, { payload }) => {
-        console.log("inshaallah log of the payload ", payload);
+        console.log("admin login payload ", payload);
         state.loading = false;
         state.error = null;
-        state.userData = payload;
-        state.role = payload.role;
         state.isLogged = true;
-        localStorage.setItem("role", JSON.stringify(state.role));
         localStorage.setItem("isLogged", JSON.stringify(state.isLogged));
-        localStorage.setItem("user", JSON.stringify(state.userData));
         localStorage.setItem("status",JSON.stringify(state.status))
-        console.log(payload, "login state inside slice");
+
       })
       .addCase(loginAdmin.rejected, (state, { payload }) => {
         state.loading = false;
-        state.userData = null;
-        state.role = null;
         state.error = payload as string;
       })
 
@@ -142,8 +127,6 @@ export const authSlice = createSlice({
         state.loading=false
         state.isLogged = false,
           state.error = null,
-          state.role = null,
-          state.userData = null;
         localStorage.clear();
       })
       .addCase(adminLogout.rejected, (state, { payload }) => {
@@ -151,7 +134,6 @@ export const authSlice = createSlice({
         state.error = payload as string;
       })
       
-
   },
 });
 
