@@ -10,6 +10,11 @@ export default {
         "xs":"275px"
       }
     },
+    extend: {
+      colors: {
+        customGreen: '#5c9478',
+      },
+    },
   },
   plugins: [],
 };

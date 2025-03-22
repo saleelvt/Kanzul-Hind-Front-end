@@ -6,16 +6,14 @@ import "../../../css/userHome.css";
 
 
 
-const UserHomePage: React.FC = () => {
+const FooterPage: React.FC = () => {
 
  
 
 
   return (
-  <div className="">saeel</div>
+  <div className=""></div>
   );
 };
 
-export default UserHomePage;
-
-
+export default FooterPage

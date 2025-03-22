@@ -74,7 +74,7 @@ export const AdminLogin = React.memo(() => {
                 id="email"
                 type="email"
                 {...formik.getFieldProps("email")}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#5c9478] focus:outline-none transition duration-300"
+                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-customGreen focus:outline-none transition duration-300"
               />
               {formik.touched.email && formik.errors.email && (
                 <p className="text-red-500 text-sm mt-1">{formik.errors.email}</p>

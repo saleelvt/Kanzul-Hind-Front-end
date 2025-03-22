@@ -11,25 +11,24 @@ const UserHomePage = lazy(() => import('./components/pages/user/userHome'));
 import { DocumentList } from './components/pages/admin/documentList';
 import { AdminLogin } from './components/forms/admin/login';
 import AdminHomePage from './components/pages/admin/adminDashBoard';
-import { AddDocument } from './components/pages/admin/addDocumentEn';
+import AddProduct from './components/pages/admin/addProduct';
+
 import { useSelector } from 'react-redux';
 import { RootState } from './reduxKit/store';
-
+   
 export const App: React.FC = React.memo(() => {
-
   const {isLogged,}=useSelector((state:RootState)=>state.auth)
   console.log("my role and my isLogged", isLogged);
-
   return (
-    <Fragment>
-      <Toaster position="top-center" />
+    <Fragment> 
+      <Toaster position="top-center" /> 
       {/* Wrap Routes in Suspense for lazy-loaded components */}
       <Suspense fallback={<Loading />}>
         <Routes>
           <Route path="/" element={ <UserHomePage/>} />
           <Route path="/adminLogin" element={ <AdminLogin />} />
           <Route path="/adminHomepage" element={<AdminHomePage />}/>
-          <Route path="/adminAddProduct" element={<AddDocument /> }/>
+          <Route path="/adminAddProduct" element={<AddProduct /> }/>
           <Route path="/adminProductList" element={ <DocumentList /> } />
         </Routes>
       </Suspense>
