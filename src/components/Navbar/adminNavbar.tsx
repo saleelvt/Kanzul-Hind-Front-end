@@ -6,7 +6,7 @@ import { AppDispatch } from "../../reduxKit/store";
 import Swal from "sweetalert2";
 import { MdOutlineLogout } from "react-icons/md"; // New Logout Icon
 import { adminLogout } from "../../reduxKit/actions/auth/authAction";
-import logoImag from "../../assets/images/logo black.svg";
+import logoImag from "../../assets/images/logo black.svg"; 
 
 export const AdminNavbar: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();

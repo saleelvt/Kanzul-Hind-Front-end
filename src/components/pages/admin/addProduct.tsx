@@ -1,5 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from "react";
 import { AdminNavbar } from "../../Navbar/adminNavbar";
+import { useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../../reduxKit/store";
+import { AddProductAction } from "../../../reduxKit/actions/admin/ProductActions";
+import Swal from "sweetalert2";
+import { useDispatch } from "react-redux";
 
 interface ProductForm {
   name: string;
@@ -10,10 +16,19 @@ interface ProductForm {
   unit: string;
   stock: number;
   isAvailable: boolean;
-  images: string[];
+  images:  (string | File)[];  // Allow both strings (URLs) and File objects
 }
 
 const AddProduct = React.memo(() => {
+ 
+  const {loading}=useSelector((state:RootState)=>state.admin)
+  const [imagePreview, setImagePreview] = useState<string[]>([]);
+  const dispatch=useDispatch<AppDispatch>()
+
+
+
+
+
   const [formData, setFormData] = useState<ProductForm>({
     name: "",
     nameAr: "",
@@ -26,8 +41,7 @@ const AddProduct = React.memo(() => {
     images: [],
   });
 
-  const [imagePreview, setImagePreview] = useState<string[]>([]);
-  
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -35,11 +49,20 @@ const AddProduct = React.memo(() => {
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      const newImages = Array.from(e.target.files).map((file) => URL.createObjectURL(file));
-      setImagePreview((prev) => [...prev, ...newImages]);
-      setFormData((prev) => ({ ...prev, images: [...prev.images, ...newImages] }));
+        const filesArray = Array.from(e.target.files);
+        
+        // Store file objects instead of URLs
+        setFormData((prev) => ({
+            ...prev,
+            images: [...prev.images, ...filesArray], 
+        }));
+
+        // Generate preview URLs for UI display
+        const previewUrls = filesArray.map((file) => URL.createObjectURL(file));
+        setImagePreview((prev) => [...prev, ...previewUrls]);
     }
-  };
+};
+
 
   const handleRemoveImage = (index: number) => {
     setImagePreview((prev) => prev.filter((_, i) => i !== index));
@@ -49,21 +72,99 @@ const AddProduct = React.memo(() => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!formData.name || !formData.nameAr || !formData.description || !formData.descriptionAr) {
-      alert("All fields are required");
-      return;
+  const handleSubmit = async (e: React.FormEvent) => {
+   
+
+    try {
+      
+      e.preventDefault();
+      if (!formData.name || !formData.nameAr || !formData.description || !formData.descriptionAr) {
+        Swal.fire({
+          icon: "error",
+          title: "Validation Error",
+          text:"All Fields Are Required",
+          timer: 3000,
+          toast: true,
+          showConfirmButton: false,
+          background: "#fff",
+          color: "#5c9478",
+          iconColor: "#f44336",
+          showClass: { popup: "animate__animated animate__fadeInDown" },
+          hideClass: { popup: "animate__animated animate__fadeOutUp" },
+        });
+        return;
+      }
+      if (formData.stock < 1) {
+  
+         Swal.fire({
+                  icon: "error",
+                  title: "Validation Error",
+                  text:"Stock must be at least 1",
+                  timer: 3000,
+                  toast: true,
+                  showConfirmButton: false,
+                  background: "#fff",
+                  color: "#5c9478",
+                  iconColor: "#f44336",
+                  showClass: { popup: "animate__animated animate__fadeInDown" },
+                  hideClass: { popup: "animate__animated animate__fadeOutUp" },
+                });
+        return;
+      }
+      if (formData.images.length === 0) {
+       
+        Swal.fire({
+          icon: "error",
+          title: "Validation Error",
+          text:"At least one image is required",
+          timer: 3000,
+          toast: true,
+          showConfirmButton: false,
+          background: "#fff",
+          color: "#5c9478",
+          iconColor: "#f44336",
+          showClass: { popup: "animate__animated animate__fadeInDown" },
+          hideClass: { popup: "animate__animated animate__fadeOutUp" },
+        });
+        return;
+      }
+      
+      console.log("Submitted Data:", formData);
+
+          // Create a new FormData object
+          const formDataToSend = new FormData();
+          formDataToSend.append("name", formData.name);
+          formDataToSend.append("nameAr", formData.nameAr);
+          formDataToSend.append("description", formData.description);
+          formDataToSend.append("descriptionAr", formData.descriptionAr);
+          formDataToSend.append("price", formData.price.toString());
+          formDataToSend.append("unit", formData.unit);
+          formDataToSend.append("stock", formData.stock.toString());
+          formDataToSend.append("isAvailable", String(formData.isAvailable));
+  
+          // Append each file in the images array
+          formData.images.forEach((file) => {
+              formDataToSend.append("images", file);
+          });
+      const response= await dispatch(AddProductAction(formDataToSend))
+      console.log("the response ",response);
+      
+
+    } catch (error:any) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text:error.message,
+        timer: 3000,
+        toast: true,
+        showConfirmButton: false,
+        background: "#fff",
+        color: "#5c9478",
+        iconColor: "#f44336",
+        showClass: { popup: "animate__animated animate__fadeInDown" },
+        hideClass: { popup: "animate__animated animate__fadeOutUp" },
+      });     
     }
-    if (formData.stock < 1) {
-      alert("Stock must be at least 1");
-      return;
-    }
-    if (formData.images.length === 0) {
-      alert("At least one image is required");
-      return;
-    }
-    console.log("Submitted Data:", formData);
   };
 
   return (
@@ -98,7 +199,17 @@ const AddProduct = React.memo(() => {
             </div>
           ))}
         </div>
-        <button type="submit" className="col-span-2 bg-customGreen text-white p-2 rounded-md">Submit</button>
+        <button
+                type="submit"
+                className="col-span-2 bg-customGreen text-white p-2 rounded-md flex items-center justify-center"
+                disabled={loading}
+            >
+                {loading ? (
+                    <div className="w-5 h-5 border-2 border-white border-t-black rounded-full animate-spin"></div>
+                ) : (
+                    "Submit"
+                )}
+            </button>
       </form>
     </div>
     </div>
