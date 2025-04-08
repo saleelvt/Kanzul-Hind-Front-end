@@ -20,7 +20,7 @@ export interface AdminLanguageState {
 
   
   export const adminLanguageSlice = createSlice({
-    name: "/adminLanguage",
+    name: "/adminLanguage", 
     initialState: initialStateForLanguage,
     reducers: {
       updateError: (state, { payload }) => {

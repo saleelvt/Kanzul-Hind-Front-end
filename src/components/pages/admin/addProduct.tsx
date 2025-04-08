@@ -6,6 +6,7 @@ import { AppDispatch, RootState } from "../../../reduxKit/store";
 import { AddProductAction } from "../../../reduxKit/actions/admin/ProductActions";
 import Swal from "sweetalert2";
 import { useDispatch } from "react-redux";
+import toast from "react-hot-toast";
 
 interface ProductForm {
   name: string;
@@ -13,7 +14,7 @@ interface ProductForm {
   description: string;
   descriptionAr: string;
   price: number | "";
-  unit: string;
+  unit: string; 
   stock: number;
   isAvailable: boolean;
   images:  (string | File)[];  // Allow both strings (URLs) and File objects
@@ -21,7 +22,7 @@ interface ProductForm {
 
 const AddProduct = React.memo(() => {
  
-  const {loading}=useSelector((state:RootState)=>state.admin)
+  const {loading}=useSelector((state:RootState)=>state.product)
   const [imagePreview, setImagePreview] = useState<string[]>([]);
   const dispatch=useDispatch<AppDispatch>()
 
@@ -147,14 +148,41 @@ const AddProduct = React.memo(() => {
               formDataToSend.append("images", file);
           });
       const response= await dispatch(AddProductAction(formDataToSend))
+      if(response.payload.success){
+        toast.success(response.payload.message)
+      }else{
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text:response.payload.message,
+          timer: 3000,
+          toast: true,
+          showConfirmButton: false,
+          background: "#fff",
+          color: "#5c9478",
+          iconColor: "#f44336",
+          showClass: { popup: "animate__animated animate__fadeInDown" },
+          hideClass: { popup: "animate__animated animate__fadeOutUp" },
+        });     
+      }
       console.log("the response ",response);
-      
+      setFormData({
+        name: "",
+        nameAr: "",
+        description: "",
+        descriptionAr: "",
+        price: "",
+        unit: "kg",
+        stock: 1,
+        isAvailable: true,
+        images: [],
+      })
 
     } catch (error:any) {
       Swal.fire({
         icon: "error",
         title: "Error",
-        text:error.message,
+        text:error,
         timer: 3000,
         toast: true,
         showConfirmButton: false,

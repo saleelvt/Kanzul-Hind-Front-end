@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import img1 from "../../../assets/images/navigation.png"
+import img2 from "../../../assets/images/11473310.png"
 
 // Define the slide type
 interface Slide {
@@ -14,23 +16,22 @@ const ProductCarousel: React.FC = () => {
   // Slides data based on the images you provided
   const slides: Slide[] = [
     {
-      image: '/api/placeholder/600/400',
+      image: `${img1}`,
       title: 'Flat 5% OFF',
       subtitle: 'On All Products',
       buttonText: 'Shop Now',
       discount: '5% OFF'
     },
     {
-      image: '/api/placeholder/600/400',
-      title: 'Halwa Stuffed Dates',
-      subtitle: 'Delicious Calicut Halwa Stuffed inside Medjool Dates',
+      image: `${img2}`, 
+      title: 'The Malabar Coffee & Snack Box',
+      subtitle: 'South Indian coffee, cardamom cookies, banana chips, coconut sugar + coffee filter',
       buttonText: 'Order Now',
       discount: "World's First"
     }
   ];
-
+  
   const [currentSlide, setCurrentSlide] = useState(0);
-
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % slides.length);
   };
@@ -40,24 +41,25 @@ const ProductCarousel: React.FC = () => {
   };
 
   return (
-    <div className="relative w-full max-w-6xl mx-auto overflow-hidden">
+    <div className="flex justify-center items-center mt-12 ">
+    <div className="relative w-full max-w-8xl mt-12 shadow-xl rounded-sm mx-auto overflow-hidden">
       {/* Carousel Container */}
-      <div className="relative w-full h-[400px] flex overflow-hidden">
+      <div className="relative w-full h-[450px] flex overflow-hidden">
         {slides.map((slide, index) => (
           <div
             key={index}
             className={`
               absolute w-full h-full transition-transform duration-500 ease-in-out
-              flex items-center justify-between px-8 bg-gray-100
+              flex items-center justify-between px-8 
               ${index === currentSlide ? 'translate-x-0' : 'translate-x-full'}
             `}
           >
             {/* Left Side - Image */}
-            <div className="w-1/3 h-full flex items-center justify-center">
+            <div className="w-2/3 h-full  flex items-center justify-center">
               <img 
                 src={slide.image} 
                 alt={slide.title} 
-                className="max-h-full max-w-full object-contain"
+                className="max-h-full max-w-full  object-contain"
               />
             </div>
 
@@ -70,7 +72,7 @@ const ProductCarousel: React.FC = () => {
               )}
               <h2 className="text-4xl font-bold">{slide.title}</h2>
               <p className="text-xl text-gray-600">{slide.subtitle}</p>
-              <button className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition">
+              <button className="bg-customGreen text-white px-6 py-3 rounded-lg hover:bg-green-700 transition">
                 {slide.buttonText}
               </button>
             </div>
@@ -81,13 +83,13 @@ const ProductCarousel: React.FC = () => {
       {/* Navigation Buttons */} 
       <button
         onClick={prevSlide}
-        className="absolute top-1/2 left-4 -translate-y-1/2 bg-white/50 rounded-full p-2 hover:bg-white/75 transition"
+        className="absolute top-1/2 left-4 -translate-y-1/2 bg-white/50 rounded-full border p-2 hover:bg-white/75 transition"
       >
         <ChevronLeft size={32} />
       </button>
       <button
         onClick={nextSlide}
-        className="absolute top-1/2 right-4 -translate-y-1/2 bg-white/50 rounded-full p-2 hover:bg-white/75 transition"
+        className="absolute top-1/2 right-4 -translate-y-1/2 bg-white/50 rounded-full border p-2 hover:bg-white/75 transition"
       >
         <ChevronRight size={32} />
       </button>
@@ -105,6 +107,7 @@ const ProductCarousel: React.FC = () => {
           />
         ))}
       </div>
+    </div>
     </div>
   );
 };

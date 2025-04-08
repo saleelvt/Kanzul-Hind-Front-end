@@ -1,6 +1,6 @@
 
 import { createSlice } from "@reduxjs/toolkit";
-import { AddProductAction,GetProductsAction } from "../../actions/admin/ProductActions";
+import { AddProductAction,GetProductsAction,GetProductByIdAction,DeleteProductByIdAction,UpdateProductAction } from "../../actions/admin/ProductActions";
 
 
 
@@ -14,7 +14,7 @@ const initialState:document={
     loading: false,
 }
 
-export const AddProductSlice = createSlice({
+export const ProductSlice = createSlice({
     name: "admin",
     initialState,
     reducers: {
@@ -51,11 +51,54 @@ export const AddProductSlice = createSlice({
           state.loading = false;
           state.error = payload as string;
         })
+
+      .addCase(GetProductByIdAction.pending, (state) => {
+          state.loading = true;
+          state.error = null;
+        })
+        .addCase(GetProductByIdAction.fulfilled, (state, {payload}) => {
+          console.log("get product slice payload ;",payload);
+          
+          state.loading = false;
+          state.error = null;
+        })
+        .addCase(GetProductByIdAction.rejected, (state, { payload }) => {
+          state.loading = false;
+          state.error = payload as string;
+        })
+
+
+      .addCase(DeleteProductByIdAction.pending, (state) => {
+          state.loading = true;
+          state.error = null;
+        })
+        .addCase(DeleteProductByIdAction.fulfilled, (state, {payload}) => {
+          console.log("get product slice payload ;",payload);          
+          state.loading = false;
+          state.error = null;
+        })
+        .addCase(DeleteProductByIdAction.rejected, (state, { payload }) => {
+          state.loading = false;
+          state.error = payload as string;
+        })
   
+      .addCase(UpdateProductAction.pending, (state) => {
+          state.loading = true;
+          state.error = null;
+        })
+        .addCase(UpdateProductAction.fulfilled, (state, {payload}) => {
+          console.log("get product slice payload ;",payload);          
+          state.loading = false;
+          state.error = null;
+        })
+        .addCase(UpdateProductAction.rejected, (state, { payload }) => {
+          state.loading = false;
+          state.error = payload as string;
+        })
     },
   });
   
   
   
-  export const {updateError}= AddProductSlice.actions
-  export default AddProductSlice
+  export const {updateError}= ProductSlice.actions
+  export default ProductSlice

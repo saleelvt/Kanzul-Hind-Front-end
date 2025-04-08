@@ -1,15 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { configureStore } from "@reduxjs/toolkit";
 import authSlice from "./reducers/auth/authSlice";
-import AddProductSlice from "./reducers/admin/ProductSlice";
 import { userLanguageSlice } from "./reducers/auth/authSlice";
 import { adminLanguageSlice } from "./reducers/admin/adminLanguage";
+import ProductSlice from "./reducers/admin/ProductSlice";
+import { cartSlice } from "./reducers/admin/cart";
 export const store = configureStore({
     reducer:{
         auth:authSlice.reducer,
-        admin:AddProductSlice.reducer,
+        product:ProductSlice.reducer,
         userLanguage:userLanguageSlice.reducer,
         adminLanguage:adminLanguageSlice.reducer,
+        cart:cartSlice.reducer
+        
     }
 })
 export type RootState = ReturnType<typeof store.getState>

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../reduxKit/store";
 import Swal from "sweetalert2";
@@ -10,9 +10,9 @@ import logoImag from "../../assets/images/logo black.svg";
 
 export const AdminNavbar: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const navigate = useNavigate();
-  const [isOpen, setIsOpen] = React.useState<boolean>(false);
 
+  const [isOpen, setIsOpen] = React.useState<boolean>(false);
+  const navigate=useNavigate()
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
@@ -43,8 +43,10 @@ export const AdminNavbar: React.FC = () => {
     <nav className="p-3 bg-[#5c9478] shadow-md">
       <div className="container  flex items-center justify-between py-2">
         {/* Logo and Heading */}
-        <div className="flex items-center space-x-3 ">
-          <img src={logoImag} alt="Logo" className=" h-12" />
+        <div className="flex items-center space-x-3  ">
+
+          <img onClick={()=>navigate("/adminHomepage")}  src={logoImag} alt="Logo" className=" h-12" />
+
           <h1 className="text-4xl font-serif font-bold ">Kanzul Hind</h1>
         </div>
 

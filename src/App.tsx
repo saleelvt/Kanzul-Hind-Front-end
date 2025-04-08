@@ -8,10 +8,12 @@ import { Loading } from './components/pages/Loading';
 // Lazy-load each page component
 // import { UserHomePage } from './components/pages/user/userHome';
 const UserHomePage = lazy(() => import('./components/pages/user/userHome'));
-
+const ProductDetails =lazy(()=> import('./components/pages/user/productDetails'))
+const UserCart=lazy(()=> import("./components/pages/user/userCart"))
 import { AdminLogin } from './components/forms/admin/login';
 import AdminHomePage from './components/pages/admin/adminDashBoard';
 import AddProduct from './components/pages/admin/addProduct';
+import AdminProductList from './components/pages/admin/adminGetProducts';
 
 import { useSelector } from 'react-redux';
 import { RootState } from './reduxKit/store';
@@ -29,6 +31,9 @@ export const App: React.FC = React.memo(() => {
           <Route path="/adminLogin" element={ <AdminLogin />} />
           <Route path="/adminHomepage" element={<AdminHomePage />}/>
           <Route path="/adminAddProduct" element={<AddProduct /> }/>
+          <Route path="/productDetails" element={<ProductDetails /> }/>
+          <Route path="/adminProductList" element={<AdminProductList /> }/>
+          <Route path="/cart" element={<UserCart /> }/>
           {/* <Route path="/adminProductList" element={ <DocumentList /> } /> */}
         </Routes>
       </Suspense>
