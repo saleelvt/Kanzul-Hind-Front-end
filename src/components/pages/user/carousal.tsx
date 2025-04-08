@@ -17,8 +17,8 @@ const ProductCarousel: React.FC = () => {
   const slides: Slide[] = [
     {
       image: `${img1}`,
-      title: 'Flat 5% OFF',
-      subtitle: 'On All Products',
+      title: 'Flat 5% OFF Herbal Teas, Trmeric Latte , Neem Soap, Essential Oils',
+      subtitle: 'On All Products Get Offer To Day',
       buttonText: 'Shop Now',
       discount: '5% OFF'
     },
